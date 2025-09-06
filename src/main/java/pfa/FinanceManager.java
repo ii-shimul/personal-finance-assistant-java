@@ -1,7 +1,6 @@
 package pfa;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FinanceManager {
 
@@ -9,10 +8,12 @@ public class FinanceManager {
 
   public void addIncome(int amount, String description) {
     transactions.add(new Income(amount, description));
+    System.out.println("Added new income to the database.");
   }
 
   public void addExpense(int amount, String description) {
     transactions.add(new Expense(amount, description));
+    System.out.println("Added new expense to the database.");
   }
 
   public int totalIncome() {
@@ -38,6 +39,11 @@ public class FinanceManager {
   public void printSummary() {
     System.out.println("Total Income: " + totalIncome());
     System.out.println("Total Expense: " + totalExpense());
+  }
+
+  public void clearAllTransactions(){
+    transactions.clear();
+    System.out.println("Transactions cleared successfully");
   }
 
   public List<Transaction> getTransactions() {
