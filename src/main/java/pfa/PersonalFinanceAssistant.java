@@ -1,13 +1,19 @@
 package pfa;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class PersonalFinanceAssistant {
+
   Scanner scanner = new Scanner(System.in);
-  User user; 
-  void start(){
-    boolean isLoggedIn = false;
+  FinanceManager manager = new FinanceManager();
+  FileHandler fileHandler = new FileHandler();
+  User user;
+
+  void start() throws IOException {
+    boolean isLoggedIn = true;
     if (isLoggedIn) {
+      fileHandler.load(manager);
       mainMenu();
     } else {
       System.out.println("Welcome to the Personal Finance Assistant");
@@ -19,14 +25,14 @@ public class PersonalFinanceAssistant {
     }
   }
 
-  void clear(){
+  void clear() {
     System.out.print("\033[H\033[2J");
     System.out.flush();
   }
 
-  public void mainMenu() {
+  void menu() {
     System.out.println("+-----------------------------+");
-    System.out.println("| Hello, " + user.getName());
+    System.out.println("| Hello, motherfunker");
     System.out.println("+-----------------------------+");
     System.out.println("| 1. Add Expense");
     System.out.println("| 2. Add Income");
@@ -36,34 +42,42 @@ public class PersonalFinanceAssistant {
     System.out.println("| 6. Exit");
     System.out.println("+-----------------------------+");
     System.out.print("Choose an option: ");
-    
+  }
+
+  public void mainMenu() throws IOException {
+    menu();
     boolean isRunning = true;
     while (isRunning) {
       int choice = scanner.nextInt();
       switch (choice) {
         case 1:
           clear();
-          System.out.println("WOW!!!");
+          System.out.println("Amount:");
+          int amount = scanner.nextInt();
+          System.out.println("Description:");
+          String description = scanner.next();
+          manager.addExpense(amount, description);
+          menu();
           break;
         case 2:
-          // addExpense();
-          // mainMenu();
+          clear();
+          System.out.println("Amount:");
+          amount = scanner.nextInt();
+          System.out.println("Description:");
+          description = scanner.next();
+          manager.addIncome(amount, description);
+          menu();
           break;
         case 3:
-          // addTransaction();
           break;
         case 4:
-          
-          // mainMenu();
+          manager.printSummary();
+          menu();
           break;
         case 5:
-          // getExpenses();
+          fileHandler.save(manager);
           break;
         case 6:
-          // getTransactions();
-          // mainMenu();
-          break;
-        case 7:
           isRunning = false;
           break;
         default:
@@ -73,7 +87,7 @@ public class PersonalFinanceAssistant {
     }
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     PersonalFinanceAssistant pfa = new PersonalFinanceAssistant();
     pfa.start();
   }
