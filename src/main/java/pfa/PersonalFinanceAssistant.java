@@ -50,16 +50,17 @@ public class PersonalFinanceAssistant {
     }
 
     void menu() {
-        System.out.println("+------------------------+");
-        System.out.println("| Hello, welcome to PFA! |");
-        System.out.println("+------------------------+");
-        System.out.println("| 1. Add Expense         |");
-        System.out.println("| 2. Add Income          |");
-        System.out.println("| 3. Set / Update Goal   |");
-        System.out.println("| 4. View Summary        |");
-        System.out.println("| 6. Clear All Data      |");
-        System.out.println("| 7. Exit                |");
-        System.out.println("+------------------------+");
+        System.out.println("+--------------------------+");
+        System.out.println("| Hello, welcome to PFA!   |");
+        System.out.println("+--------------------------+");
+        System.out.println("| 1. Add Expense           |");
+        System.out.println("| 2. Add Income            |");
+        System.out.println("| 3. Set / Update Goal     |");
+        System.out.println("| 4. View Summary          |");
+        System.out.println("| 5. Transactions in a day |");
+        System.out.println("| 6. Clear All Data        |");
+        System.out.println("| 7. Exit                  |");
+        System.out.println("+--------------------------+");
         System.out.print("Choose an option: ");
     }
 
@@ -99,6 +100,13 @@ public class PersonalFinanceAssistant {
                     case 4 -> {
                         clear();
                         manager.printSummary();
+                        waitForEnter();
+                        clear();
+                        menu();
+                    }
+                    case 5 -> {
+                        clear();
+                        manager.getTransactionsDay();
                         waitForEnter();
                         clear();
                         menu();

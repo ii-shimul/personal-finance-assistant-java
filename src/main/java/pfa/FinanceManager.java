@@ -1,5 +1,6 @@
 package pfa;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class FinanceManager {
@@ -80,6 +81,23 @@ public class FinanceManager {
     transactions.clear();
     goal.setTargetAmount(0);
     System.out.println("Transactions cleared successfully");
+  }
+
+  public void getTransactionsDay() {
+    System.out.print("Enter date (YYYY-MM-DD): ");
+    String dateInput = scanner.nextLine();
+    LocalDate date = LocalDate.parse(dateInput);
+    System.out.println("Transactions on " + date + ":");
+    boolean found = false;
+    for (Transaction t : transactions) {
+      if (t.getDate().equals(date)) {
+        System.out.println("Type: " + t.getType() + " | Amount: " + t.getAmount() + " | Description: " + t.getDesc());
+        found = true;
+      }
+    }
+    if (!found) {
+      System.out.println("No transactions found for this date.");
+    }
   }
 
   // returning all transactions
