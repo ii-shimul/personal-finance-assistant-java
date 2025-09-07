@@ -75,6 +75,7 @@ public class PersonalFinanceAssistant {
                         manager.addTransaction(choice);
                         System.out.println("Added new expense to the database.");
                         waitForEnter();
+                        clear();
                         menu();
                     }
                     case 2 -> {
@@ -82,25 +83,35 @@ public class PersonalFinanceAssistant {
                         manager.addTransaction(choice);
                         System.out.println("Added new income to the database.");
                         waitForEnter();
+                        clear();
                         menu();
                     }
                     case 3 -> {
-                        System.out.print("How much do you want to save?");
+                        clear();
+                        System.out.print("How much do you want to save? ");
                         int amount = scanner.nextInt();
-                        System.out.println(amount);
+                        manager.goal.setTargetAmount(amount);
+                        System.out.println("Goal set!");
+                        waitForEnter();
+                        clear();
+                        menu();
                     }
                     case 4 -> {
+                        clear();
                         manager.printSummary();
                         waitForEnter();
+                        clear();
                         menu();
                     }
                     case 6 -> {
                         manager.clearAllTransactions();
                         waitForEnter();
+                        clear();
+                        menu();
                     }
                     case 7 -> {
                         FileHandler.save(manager);
-                        System.out.println("Tataaa");
+                        System.out.println("Tata");
                         isRunning = false;
                     }
                     default ->

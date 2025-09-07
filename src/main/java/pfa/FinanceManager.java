@@ -7,18 +7,26 @@ public class FinanceManager {
   Scanner scanner = new Scanner(System.in);
 
   List<Transaction> transactions = new ArrayList<>();
+  Goal goal = new Goal();
 
   // adding an income or expense
   public void addTransaction(int choice) {
     try {
       System.out.print("Amount: ");
       int amount = scanner.nextInt();
+
       if (amount < 0) {
         throw new InvalidAmountException("Amount should be a positive integer.");
       }
+
+      if (choice == 1 && amount > balance()) {
+        System.out.println("WARNING: You will be in debt after this expense!");
+      }
+
       System.out.print("Description: ");
       scanner.nextLine();
       String description = scanner.nextLine();
+
       if (choice == 1) {
         transactions.add(new Expense(amount, description));
       } else if (choice == 2) {
@@ -51,15 +59,26 @@ public class FinanceManager {
     return sum;
   }
 
+  public int balance() {
+    return totalIncome() - totalExpense();
+  };
+
+  public void setGoal(int goalAmount) {
+    goal.setTargetAmount(goalAmount);
+  }
+
   // print the overall summary
   public void printSummary() {
     System.out.println("Total Income: " + totalIncome());
     System.out.println("Total Expense: " + totalExpense());
+    System.out.println("Balance: " + balance());
+    System.out.println("Current goal: " + goal.getTargetAmount());
   }
 
   // clearing all income and expenses
   public void clearAllTransactions() {
     transactions.clear();
+    goal.setTargetAmount(0);
     System.out.println("Transactions cleared successfully");
   }
 

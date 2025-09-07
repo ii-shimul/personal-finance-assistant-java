@@ -14,6 +14,12 @@ public class FileHandler {
       return;
     }
     BufferedWriter writer = new BufferedWriter(new FileWriter(tran_file));
+
+    // write goal first
+    writer.write(manager.goal.toString());
+    writer.newLine();
+
+    // write the transactions
     for (Transaction t : manager.getTransactions()) {
       writer.write(t.toString());
       writer.newLine();
@@ -37,6 +43,8 @@ public class FileHandler {
         manager.transactions.add(new Income(parseInt(splitLine[1]), splitLine[3], LocalDate.parse(splitLine[2])));
       } else if (splitLine[0].equals("EXPENSE")) {
         manager.transactions.add(new Expense(parseInt(splitLine[1]), splitLine[3], LocalDate.parse(splitLine[2])));
+      } else if (splitLine[0].equals("GOAL")) {
+        manager.goal.setTargetAmount(parseInt(splitLine[1]));
       }
     }
     reader.close();
