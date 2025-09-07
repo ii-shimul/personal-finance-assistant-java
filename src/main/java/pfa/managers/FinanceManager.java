@@ -1,14 +1,20 @@
-package pfa;
+package pfa.managers;
 
 import java.time.LocalDate;
 import java.util.*;
+
+import pfa.exceptions.InvalidAmountException;
+import pfa.transaction.Expense;
+import pfa.transaction.Income;
+import pfa.transaction.Transaction;
+import pfa.user.Goal;
 
 public class FinanceManager {
 
   Scanner scanner = new Scanner(System.in);
 
   List<Transaction> transactions = new ArrayList<>();
-  Goal goal = new Goal();
+  public Goal goal = new Goal();
 
   // adding an income or expense
   public void addTransaction(int choice) {

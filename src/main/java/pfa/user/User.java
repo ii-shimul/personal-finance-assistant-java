@@ -1,4 +1,4 @@
-package pfa;
+package pfa.user;
 
 public class User {
   private String name;
@@ -7,7 +7,7 @@ public class User {
     this.name = userName;
   }
 
-  String getName() {
+  public String getName() {
     return name;
   }
 }

@@ -1,4 +1,4 @@
-package pfa;
+package pfa.user;
 
 public class Goal {
   private int targetAmount = 0;

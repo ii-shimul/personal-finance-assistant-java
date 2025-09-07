@@ -1,4 +1,4 @@
-package pfa;
+package pfa.transaction;
 
 import java.time.LocalDate;
 

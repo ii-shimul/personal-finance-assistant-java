@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import pfa.managers.FileHandler;
+import pfa.managers.FinanceManager;
+import pfa.user.User;
+
 public class PersonalFinanceAssistant {
 
     Scanner scanner = new Scanner(System.in);
     FinanceManager manager = new FinanceManager();
-    User user;
+    public User user;
 
     // entry point of the program
     void start() throws IOException {
@@ -25,8 +29,8 @@ public class PersonalFinanceAssistant {
     // method to wait for Enter key press
     void waitForEnter() {
         System.out.print("\nPress Enter to continue...");
-        scanner.nextLine(); // This will wait for the Enter key
-        scanner.nextLine(); // This will wait for the Enter key
+        scanner.nextLine();
+        scanner.nextLine();
     }
 
     // method for clearing the console
