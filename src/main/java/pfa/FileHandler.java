@@ -10,6 +10,9 @@ public class FileHandler {
 
   // method for saving all transactions before exiting
   public static void save(FinanceManager manager) throws IOException {
+    if (manager.getTransactions().isEmpty()) {
+      return;
+    }
     BufferedWriter writer = new BufferedWriter(new FileWriter(tran_file));
     for (Transaction t : manager.getTransactions()) {
       writer.write(t.toString());
