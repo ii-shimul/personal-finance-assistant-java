@@ -3,21 +3,22 @@ package pfa;
 import java.io.*;
 import static java.lang.Integer.parseInt;
 import java.time.LocalDate;
-import java.util.List;
 
 public class FileHandler {
 
-  private static final String tran_file = "transactions.csv";
+  private static String tran_file;
 
   public static void save(FinanceManager manager) throws IOException {
-    saveTransactions(manager.getTransactions());
+    BufferedWriter writer = new BufferedWriter(new FileWriter(tran_file));
+    for (Transaction t : manager.getTransactions()) {
+      writer.write(t.toString());
+      writer.newLine();
+    }
+    writer.close();
   }
 
-  public static void load(FinanceManager manager) throws IOException {
-    loadTransactions(manager);
-  }
-
-  public static void loadTransactions(FinanceManager manager) throws IOException {
+  public static void load(FinanceManager manager, User user) throws IOException {
+    tran_file = "data/" + user.getName() + ".csv";
     File data = new File(tran_file);
     if (!data.exists()) {
       return;
@@ -35,14 +36,5 @@ public class FileHandler {
       }
     }
     reader.close();
-  }
-
-  public static void saveTransactions(List<Transaction> transactions) throws IOException {
-    BufferedWriter writer = new BufferedWriter(new FileWriter(tran_file));
-    for (Transaction t : transactions) {
-      writer.write(t.toString());
-      writer.newLine();
-    }
-    writer.close();
   }
 }

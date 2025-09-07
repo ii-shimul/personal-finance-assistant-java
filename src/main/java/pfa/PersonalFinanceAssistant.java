@@ -11,18 +11,13 @@ public class PersonalFinanceAssistant {
   User user;
 
   void start() throws IOException {
-    boolean isLoggedIn = true;
-    if (isLoggedIn) {
-      FileHandler.load(manager);
-      mainMenu();
-    } else {
-      System.out.println("Welcome to the Personal Finance Assistant");
-      System.out.println("Please enter your name to continue: ");
-      String userName = scanner.nextLine();
-      user = new User(userName);
-      clear();
-      mainMenu();
-    }
+    System.out.println("Welcome to the Personal Finance Assistant");
+    System.out.println("Please enter your name to continue: ");
+    String userName = scanner.nextLine();
+    user = new User(userName);
+    FileHandler.load(manager, user);
+    clear();
+    mainMenu();
   }
 
   void clear() {
@@ -38,7 +33,7 @@ public class PersonalFinanceAssistant {
     System.out.println("| 2. Add Income");
     System.out.println("| 3. Set / Update Goal");
     System.out.println("| 4. View Summary");
-    System.out.println("| 6. Clear All Transactions");
+    System.out.println("| 6. Clear All Data");
     System.out.println("| 7. Exit");
     System.out.println("+-----------------------------+");
     System.out.print("Choose an option: ");
