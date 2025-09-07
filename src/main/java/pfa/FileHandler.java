@@ -8,6 +8,7 @@ public class FileHandler {
 
   private static String tran_file;
 
+  // method for saving all transactions before exiting
   public static void save(FinanceManager manager) throws IOException {
     BufferedWriter writer = new BufferedWriter(new FileWriter(tran_file));
     for (Transaction t : manager.getTransactions()) {
@@ -17,19 +18,19 @@ public class FileHandler {
     writer.close();
   }
 
+  // loading previous transactions at the start
   public static void load(FinanceManager manager, User user) throws IOException {
     tran_file = "data/" + user.getName() + ".csv";
-    File data = new File(tran_file);
-    if (!data.exists()) {
+    File prevData = new File(tran_file);
+    if (!prevData.exists()) {
       return;
     }
 
-    BufferedReader reader = new BufferedReader(new FileReader(data));
+    BufferedReader reader = new BufferedReader(new FileReader(prevData));
     String line;
     while ((line = reader.readLine()) != null) {
       String[] splitLine = line.split("\\|");
       if (splitLine[0].equals("INCOME")) {
-        System.out.println("inside income");
         manager.transactions.add(new Income(parseInt(splitLine[1]), splitLine[3], LocalDate.parse(splitLine[2])));
       } else if (splitLine[0].equals("EXPENSE")) {
         manager.transactions.add(new Expense(parseInt(splitLine[1]), splitLine[3], LocalDate.parse(splitLine[2])));

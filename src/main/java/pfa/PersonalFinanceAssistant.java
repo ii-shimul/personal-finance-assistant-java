@@ -10,6 +10,7 @@ public class PersonalFinanceAssistant {
   FinanceManager manager = new FinanceManager();
   User user;
 
+  // entry point of the program
   void start() throws IOException {
     System.out.println("Welcome to the Personal Finance Assistant");
     System.out.println("Please enter your name to continue: ");
@@ -17,9 +18,10 @@ public class PersonalFinanceAssistant {
     user = new User(userName);
     FileHandler.load(manager, user);
     clear();
-    mainMenu();
+    menuHandler();
   }
 
+  // method for clearing the console
   void clear() {
     System.out.print("\033[H\033[2J");
     System.out.flush();
@@ -39,7 +41,7 @@ public class PersonalFinanceAssistant {
     System.out.print("Choose an option: ");
   }
 
-  public void mainMenu() throws IOException {
+  public void menuHandler() throws IOException {
     menu();
     boolean isRunning = true;
     while (isRunning) {
@@ -48,28 +50,20 @@ public class PersonalFinanceAssistant {
         switch (choice) {
           case 1:
             clear();
-            System.out.println("Amount:");
-            int amount = scanner.nextInt();
-            System.out.println("Description:");
-            String description = scanner.next();
-            manager.addExpense(amount, description);
-            clear();
+            manager.addTransaction(choice);
+            System.out.println("Added new expense to the database.");
             menu();
             break;
           case 2:
             clear();
-            System.out.println("Amount:");
-            amount = scanner.nextInt();
-            if (amount < 0) {
-              throw new InvalidAmountException("Amount should be a positive integer.");
-            }
-            System.out.println("Description:");
-            description = scanner.next();
-            manager.addIncome(amount, description);
-            clear();
+            manager.addTransaction(choice);
+            System.out.println("Added new income to the database.");
             menu();
             break;
           case 3:
+            System.out.print("How much do you want to save?");
+            int amount = scanner.nextInt();
+            System.out.println(amount);
             break;
           case 4:
             manager.printSummary();
@@ -82,13 +76,11 @@ public class PersonalFinanceAssistant {
             isRunning = false;
             break;
           default:
-            System.out.println("Invalid choice");
+            System.out.println("Invalid choice, please choose between 1-7.");
             break;
         }
-      } catch (InvalidAmountException e) {
-        System.out.println(e.getMessage());
       } catch (InputMismatchException e) {
-        System.out.println("Invalid input.");
+        System.out.println("Invalid input, please enter a valid choice.");
         scanner.nextLine();
       }
     }
