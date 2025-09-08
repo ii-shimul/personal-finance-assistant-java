@@ -26,7 +26,7 @@ public class FinanceManager {
         throw new InvalidAmountException("Amount should be a positive integer.");
       }
 
-      if (choice == 1 && amount > balance()) {
+      if (choice == 2 && amount > balance()) {
         System.out.println("WARNING: You will be in debt after this expense!");
       }
 
@@ -35,9 +35,9 @@ public class FinanceManager {
       String description = scanner.nextLine();
 
       if (choice == 1) {
-        transactions.add(new Expense(amount, description));
-      } else if (choice == 2) {
         transactions.add(new Income(amount, description));
+      } else if (choice == 2) {
+        transactions.add(new Expense(amount, description));
       }
     } catch (InvalidAmountException e) {
       System.out.println(e.getMessage());

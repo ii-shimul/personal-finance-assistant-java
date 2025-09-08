@@ -57,10 +57,10 @@ public class PersonalFinanceAssistant {
         System.out.println("+------------------------+");
         System.out.println("| Hello, welcome to PFA! |");
         System.out.println("+------------------------+");
-        System.out.println("| 1. Add Expense         |");
-        System.out.println("| 2. Add Income          |");
-        System.out.println("| 3. Set / Update Goal   |");
-        System.out.println("| 4. View Summary        |");
+        System.out.println("| 1. Add Income          |");
+        System.out.println("| 2. Add Expense         |");
+        System.out.println("| 3. View Summary        |");
+        System.out.println("| 4. Set / Update Goal   |");
         System.out.println("| 5. Filter by date      |");
         System.out.println("| 6. Clear All Data      |");
         System.out.println("| 7. Exit                |");
@@ -78,7 +78,7 @@ public class PersonalFinanceAssistant {
                     case 1 -> {
                         clear();
                         manager.addTransaction(choice);
-                        System.out.println("Added new expense to the database.");
+                        System.out.println("Added new income to the database.");
                         waitForEnter();
                         clear();
                         menu();
@@ -86,24 +86,24 @@ public class PersonalFinanceAssistant {
                     case 2 -> {
                         clear();
                         manager.addTransaction(choice);
-                        System.out.println("Added new income to the database.");
+                        System.out.println("Added new expense to the database.");
                         waitForEnter();
                         clear();
                         menu();
                     }
                     case 3 -> {
                         clear();
-                        System.out.print("How much do you want to save? ");
-                        int amount = scanner.nextInt();
-                        manager.goal.setTargetAmount(amount);
-                        System.out.println("Goal set!");
+                        manager.printSummary();
                         waitForEnter();
                         clear();
                         menu();
                     }
                     case 4 -> {
                         clear();
-                        manager.printSummary();
+                        System.out.print("How much do you want to save? ");
+                        int amount = scanner.nextInt();
+                        manager.goal.setTargetAmount(amount);
+                        System.out.println("Goal set!");
                         waitForEnter();
                         clear();
                         menu();
