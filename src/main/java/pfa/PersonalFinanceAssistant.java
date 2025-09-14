@@ -3,7 +3,6 @@ package pfa;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import pfa.managers.FileHandler;
 import pfa.managers.FinanceManager;
 import pfa.user.User;
@@ -38,15 +37,15 @@ public class PersonalFinanceAssistant {
         try {
             final String os = System.getProperty("os.name");
             if (os.contains("Windows")) {
-                // For Windows
+                // for windows
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
-                // For Unix/Linux/MacOS
+                // for unix
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
             }
         } catch (Exception e) {
-            // Fallback method if the above fails
+            // if the above fails
             for (int i = 0; i < 50; i++) {
                 System.out.println();
             }
@@ -117,6 +116,7 @@ public class PersonalFinanceAssistant {
                     }
                     case 6 -> {
                         manager.clearAllTransactions();
+                        FileHandler.deleteFile();
                         waitForEnter();
                         clear();
                         menu();

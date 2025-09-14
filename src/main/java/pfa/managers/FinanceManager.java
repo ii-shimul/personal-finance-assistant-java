@@ -2,7 +2,6 @@ package pfa.managers;
 
 import java.time.LocalDate;
 import java.util.*;
-
 import pfa.exceptions.InvalidAmountException;
 import pfa.transaction.Expense;
 import pfa.transaction.Income;
@@ -11,103 +10,105 @@ import pfa.user.Goal;
 
 public class FinanceManager {
 
-  Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
-  List<Transaction> transactions = new ArrayList<>();
-  public Goal goal = new Goal();
+    List<Transaction> transactions = new ArrayList<>();
+    public Goal goal = new Goal();
 
-  // adding an income or expense
-  public void addTransaction(int choice) {
-    try {
-      System.out.print("Amount: ");
-      int amount = scanner.nextInt();
+    // adding an income or expense
+    public void addTransaction(int choice) {
+        try {
+            System.out.print("Amount: ");
+            int amount = scanner.nextInt();
 
-      if (amount < 0) {
-        throw new InvalidAmountException("Amount should be a positive integer.");
-      }
+            if (amount < 0) {
+                throw new InvalidAmountException("Amount should be a positive integer.");
+            }
 
-      if (choice == 2 && amount > balance()) {
-        System.out.println("WARNING: You will be in debt after this expense!");
-      }
+            if (choice == 2 && amount > balance()) {
+                System.out.println("WARNING: You will be in debt after this expense!");
+            }
 
-      System.out.print("Description: ");
-      scanner.nextLine();
-      String description = scanner.nextLine();
+            System.out.print("Description: ");
+            scanner.nextLine();
+            String description = scanner.nextLine();
 
-      if (choice == 1) {
-        transactions.add(new Income(amount, description));
-      } else if (choice == 2) {
-        transactions.add(new Expense(amount, description));
-      }
-    } catch (InvalidAmountException e) {
-      System.out.println(e.getMessage());
+            if (choice == 1) {
+                transactions.add(new Income(amount, description));
+            } else if (choice == 2) {
+                transactions.add(new Expense(amount, description));
+            }
+        } catch (InvalidAmountException e) {
+            System.out.println(e.getMessage());
+        }
     }
-  }
 
-  // calculating total income
-  public int totalIncome() {
-    int sum = 0;
-    for (Transaction t : transactions) {
-      if (t.getType() == "INCOME") {
-        sum += t.getAmount();
-      }
+    // calculating total income
+    public int totalIncome() {
+        int sum = 0;
+        for (Transaction t : transactions) {
+            if (t.getType().equals("INCOME")) {
+                sum += t.getAmount();
+            }
+        }
+        return sum;
     }
-    return sum;
-  }
 
-  // calculating total expense
-  public int totalExpense() {
-    int sum = 0;
-    for (Transaction t : transactions) {
-      if (t.getType() == "EXPENSE") {
-        sum += t.getAmount();
-      }
+    // calculating total expense
+    public int totalExpense() {
+        int sum = 0;
+        for (Transaction t : transactions) {
+            if (t.getType().equals("EXPENSE")) {
+                sum += t.getAmount();
+            }
+        }
+        return sum;
     }
-    return sum;
-  }
 
-  public int balance() {
-    return totalIncome() - totalExpense();
-  };
+    public int balance() {
+        return totalIncome() - totalExpense();
+    }
+
+    ;
 
   public void setGoal(int goalAmount) {
-    goal.setTargetAmount(goalAmount);
-  }
-
-  // print the overall summary
-  public void printSummary() {
-    System.out.println("Total Income: " + totalIncome());
-    System.out.println("Total Expense: " + totalExpense());
-    System.out.println("Balance: " + balance());
-    System.out.println("Current goal: " + goal.getTargetAmount());
-  }
-
-  // clearing all income and expenses
-  public void clearAllTransactions() {
-    transactions.clear();
-    goal.setTargetAmount(0);
-    System.out.println("Transactions cleared successfully");
-  }
-
-  public void getTransactionsDay() {
-    System.out.print("Enter date (YYYY-MM-DD): ");
-    String dateInput = scanner.nextLine();
-    LocalDate date = LocalDate.parse(dateInput);
-    System.out.println("Transactions on " + date + ":");
-    boolean found = false;
-    for (Transaction t : transactions) {
-      if (t.getDate().equals(date)) {
-        System.out.println("Type: " + t.getType() + " | Amount: " + t.getAmount() + " | Description: " + t.getDesc());
-        found = true;
-      }
+        goal.setTargetAmount(goalAmount);
     }
-    if (!found) {
-      System.out.println("No transactions found for this date.");
-    }
-  }
 
-  // returning all transactions
-  public List<Transaction> getTransactions() {
-    return transactions;
-  }
+    // print the overall summary
+    public void printSummary() {
+        System.out.println("Total Income: " + totalIncome());
+        System.out.println("Total Expense: " + totalExpense());
+        System.out.println("Balance: " + balance());
+        System.out.println("Current goal: " + goal.getTargetAmount());
+    }
+
+    // clearing all income and expenses
+    public void clearAllTransactions() {
+        transactions.clear();
+        goal.setTargetAmount(0);
+        System.out.println("Transactions cleared successfully");
+    }
+
+    public void getTransactionsDay() {
+        System.out.print("Enter date (YYYY-MM-DD): ");
+        String dateInput = scanner.nextLine();
+        LocalDate date = LocalDate.parse(dateInput);
+        System.out.println("Transactions on " + date + ":");
+        boolean found = false;
+        for (Transaction t : transactions) {
+            if (t.getDate().equals(date)) {
+                System.out.println("Type: " + t.getType() + " | Amount: " + t.getAmount() + " | Description: " + t.getDesc());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No transactions found for this date.");
+        }
+    }
+
+    // returning all transactions
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
 }
